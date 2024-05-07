@@ -1,0 +1,31 @@
+pipeline{
+    agent any
+    
+    tools{
+        maven 'MAVEN_HOME1'
+    }
+    stages{
+        stage('clone'){
+            steps{
+                git branch: 'main', changelog:false, url:'https://github.com/Anishdoingcode/Cucumber.git'
+            }
+        }
+        stage('Build'){
+            steps{
+                dir('cucumber1'){
+                    bat 'mvn clean'
+                }
+                // bat 'mvn clean'
+            //   bat 'mvn -f cucumber1/ clean'
+                
+            }
+        }
+        stage('test'){
+            steps{
+                dir('cucumber1'){
+                    bat 'mvn test'
+                }
+            }
+        }
+    }
+}
