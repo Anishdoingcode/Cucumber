@@ -27,5 +27,13 @@ pipeline{
                 }
             }
         }
+        stage('cleanup'){
+                    steps{
+                        dir('cucumber1'){
+                            //add code to clean temo files etc
+                            bat 'mvn clean'
+                        }
+                    }
+                }
     }
 }
