@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Poll SCM') {
             steps {
-                // Jenkins will automatically poll SCM based on the job's configuration
+                echo 'Polling SCM...' // Placeholder step for Poll SCM stage
             }
         }
         stage('Clone') {
