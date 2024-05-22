@@ -1,39 +1,41 @@
-pipeline{
+pipeline {
     agent any
     
-    tools{
+    tools {
         maven 'MAVEN_HOME1'
     }
-    stages{
-        stage('clone'){
-            steps{
+    
+    triggers {
+        pollSCM('0 * * * *') // Schedule the polling interval as needed
+    }
+    
+    stages {
+        stage('clone') {
+            steps {
                 git branch: 'main', changelog:false, url:'https://github.com/Anishdoingcode/Cucumber.git'
             }
         }
-        stage('Build'){
-            steps{
-                dir('cucumber1'){
+        stage('Build') {
+            steps {
+                dir('cucumber1') {
                     bat 'mvn clean'
                 }
-                // bat 'mvn clean'
-            //   bat 'mvn -f cucumber1/ clean'
-                
             }
         }
-        stage('test'){
-            steps{
-                dir('cucumber1'){
+        stage('Test') {
+            steps {
+                dir('cucumber1') {
                     bat 'mvn test'
                 }
             }
         }
-        stage('cleanup'){
-                    steps{
-                        dir('cucumber1'){
-                            //add code to clean temo files etc
-                            bat 'mvn clean'
-                        }
-                    }
+        stage('Cleanup') {
+            steps {
+                dir('cucumber1') {
+                    // Add code to clean temporary files, etc.
+                    bat 'mvn clean'
                 }
+            }
+        }
     }
 }
