@@ -5,12 +5,13 @@ pipeline {
         maven 'MAVEN_HOME1'
     }
     
-    triggers {
-        pollSCM('0 * * * *') // Schedule the polling interval as needed
-    }
-    
     stages {
-        stage('clone') {
+        stage('Poll SCM') {
+            steps {
+                // Jenkins will automatically poll SCM based on the job's configuration
+            }
+        }
+        stage('Clone') {
             steps {
                 git branch: 'main', changelog:false, url:'https://github.com/Anishdoingcode/Cucumber.git'
             }
